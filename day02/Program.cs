@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace day02
 {
@@ -14,17 +13,20 @@ namespace day02
       while ((line = reader.ReadLine()) != null)
       {
         string[] s = line.Split(' ');
-        int lowerBound = int.Parse(s[0].Split('-')[0]);
-        int upperBound = int.Parse(s[0].Split('-')[1]);
+        int pos1 = int.Parse(s[0].Split('-')[0]);
+        int pos2 = int.Parse(s[0].Split('-')[1]);
         char letter = s[1].TrimEnd(':')[0];
         string input = s[2];
 
-        int frequency = input.Count(c => c == letter);
+        // the no-zero-based-index; hence, position 1 in file refers to index 0
+        pos1--;
+        pos2--;
 
-        if (frequency >= lowerBound && frequency <= upperBound)
+        if (input[pos1] == letter ^ input[pos2] == letter)
         {
           hits++;
         }
+
       }
 
       Console.WriteLine($"Hits: {hits}");
